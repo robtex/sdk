@@ -1,0 +1,43 @@
+{
+  "name": "@robtex/sdk",
+  "version": "0.1.1",
+  "description": "Lightweight TypeScript SDK for the Robtex API — DNS, IP, AS, Bitcoin, and Lightning Network intelligence",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "robtex",
+    "dns",
+    "ip",
+    "asn",
+    "bgp",
+    "bitcoin",
+    "lightning-network",
+    "threat-intelligence",
+    "blocklist",
+    "passive-dns",
+    "network-intelligence",
+    "osint",
+    "security",
+    "api",
+    "sdk"
+  ],
+  "author": "Robtex <info@robtex.com>",
+  "license": "MIT",
+  "homepage": "https://robtex.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robtex/sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/robtex/sdk/issues"
+  }
+}
