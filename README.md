@@ -33,13 +33,22 @@ const pdns = await api.pdnsForward({ domain: 'example.com' });
 const addr = await api.lookupBitcoinAddress({ address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' });
 ```
 
-## API Key (Optional)
+## Authentication (Optional)
 
-Works without a key (rate-limited). Pass a key for higher limits:
+Works without any key (rate-limited to 10 req/hr). Three options for higher limits:
 
 ```typescript
+// Free — no key, 10 req/hr
+const api = new Robtex();
+
+// Pro API key — higher limits
 const api = new Robtex({ apiKey: 'your-key' });
+
+// RapidAPI key — managed billing, plans from $19/mo
+const api = new Robtex({ rapidApiKey: 'your-rapidapi-key' });
 ```
+
+Get a RapidAPI key at https://rapidapi.com/robtex/api/robtex
 
 ## Multi-step Investigation Example
 

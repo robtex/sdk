@@ -16,15 +16,22 @@
  * ```typescript
  * const api = new Robtex({ apiKey: 'your-key' });
  * ```
+ *
+ * @example With RapidAPI key (plans from $19/mo, 50K+ requests)
+ * ```typescript
+ * const api = new Robtex({ rapidApiKey: 'your-rapidapi-key' });
+ * ```
  */
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 /** SDK configuration options */
 export interface RobtexOptions {
-  /** API key for higher rate limits. Optional — works without one. */
+  /** API key for higher rate limits via proapi.robtex.com. Optional — works without one. */
   apiKey?: string;
-  /** Base URL override. Defaults to https://freeapi.robtex.com (or proapi if apiKey set). */
+  /** RapidAPI key for access via RapidAPI marketplace (plans from $19/mo). See https://rapidapi.com/robtex/api/robtex */
+  rapidApiKey?: string;
+  /** Base URL override. Auto-selected: freeapi (no key), proapi (apiKey), or RapidAPI (rapidApiKey). */
   baseUrl?: string;
   /** Custom fetch implementation. Defaults to globalThis.fetch. */
   fetch?: typeof globalThis.fetch;
@@ -158,12 +165,16 @@ export interface BitcoinBlockResponse {
 export class Robtex {
   private baseUrl: string;
   private apiKey: string | undefined;
+  private rapidApiKey: string | undefined;
   private fetchFn: typeof globalThis.fetch;
 
   constructor(options: RobtexOptions = {}) {
     this.apiKey = options.apiKey;
+    this.rapidApiKey = options.rapidApiKey;
     this.baseUrl = options.baseUrl
-      ?? (options.apiKey ? 'https://proapi.robtex.com' : 'https://freeapi.robtex.com');
+      ?? (options.rapidApiKey ? 'https://robtex.p.rapidapi.com'
+        : options.apiKey ? 'https://proapi.robtex.com'
+        : 'https://freeapi.robtex.com');
     this.fetchFn = options.fetch ?? globalThis.fetch.bind(globalThis);
   }
 
@@ -175,12 +186,20 @@ export class Robtex {
     }
     if (this.apiKey) url.searchParams.set('key', this.apiKey);
 
-    const res = await this.fetchFn(url.toString());
+    const headers: Record<string, string> = {};
+    if (this.rapidApiKey) {
+      headers['X-RapidAPI-Key'] = this.rapidApiKey;
+      headers['X-RapidAPI-Host'] = 'robtex.p.rapidapi.com';
+    }
+
+    const res = await this.fetchFn(url.toString(), { headers });
 
     if (res.status === 429) {
       const retryAfter = res.headers.get('Retry-After');
       throw new RobtexError(
-        'Rate limited. Get an API key at https://proapi.robtex.com for higher limits.',
+        this.rapidApiKey
+          ? 'RapidAPI rate limit exceeded. Check your plan at https://rapidapi.com/robtex/api/robtex'
+          : 'Rate limited. Get higher limits at https://rapidapi.com/robtex/api/robtex',
         429,
         retryAfter ? Number(retryAfter) : null,
       );
