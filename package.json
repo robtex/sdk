@@ -1,6 +1,6 @@
 {
   "name": "@robtex/sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Lightweight TypeScript SDK for the Robtex API — DNS, IP, AS, Bitcoin, and Lightning Network intelligence",
   "type": "module",
   "main": "index.ts",

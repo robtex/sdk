@@ -23,6 +23,8 @@
  * ```
  */
 
+const SDK_VERSION = '0.3.0';
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 /** SDK configuration options */
@@ -186,7 +188,10 @@ export class Robtex {
     }
     if (this.apiKey) url.searchParams.set('key', this.apiKey);
 
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string> = {
+      'User-Agent': `@robtex/sdk/${SDK_VERSION}`,
+      'X-Robtex-SDK': SDK_VERSION,
+    };
     if (this.rapidApiKey) {
       headers['X-RapidAPI-Key'] = this.rapidApiKey;
       headers['X-RapidAPI-Host'] = 'robtex.p.rapidapi.com';
