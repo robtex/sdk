@@ -1,9 +1,10 @@
 # @robtex/sdk
 
-Lightweight TypeScript SDK for the [Robtex](https://robtex.com) API. DNS, IP, AS, Bitcoin, and Lightning Network intelligence.
+Lightweight SDK for the [Robtex](https://robtex.com) API. DNS, IP, AS, Bitcoin, and Lightning Network intelligence.
 
 - Zero dependencies
-- Full TypeScript types
+- Plain ESM JavaScript with JSDoc types — no build step, no `tsx`, runs on plain `node` (>=20)
+- Editor IntelliSense via JSDoc (works in VS Code, WebStorm, Cursor, etc.)
 - Works everywhere: Node, Deno, Bun, Cloudflare Workers, browsers
 - 55 endpoints covering DNS, passive DNS, IP reputation, geolocation, BGP, domain analysis, Bitcoin, and Lightning Network
 

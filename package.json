@@ -1,18 +1,20 @@
 {
   "name": "@robtex/sdk",
-  "version": "0.3.0",
-  "description": "Lightweight TypeScript SDK for the Robtex API — DNS, IP, AS, Bitcoin, and Lightning Network intelligence",
+  "version": "0.3.1",
+  "description": "Lightweight SDK for the Robtex API — DNS, IP, AS, Bitcoin, and Lightning Network intelligence",
   "type": "module",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "index.js",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.js"
   },
   "files": [
-    "index.ts",
+    "index.js",
     "README.md",
     "LICENSE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "keywords": [
     "robtex",
     "dns",
